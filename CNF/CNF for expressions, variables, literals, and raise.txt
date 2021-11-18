@@ -1,0 +1,79 @@
+// Variabel
+V -> V1V2 | A-Z | a-z | _
+V1-> A-Z | a-z | _
+V2-> V2V2 | A-Z | a-z | 0-9 | _
+
+FA
+	0-9	A-Z	a-z	_
+->s	-	f	f	f
+*f	f	f	f	f
+
+
+// Ekspresi, E1E2 -> x=y=z=literal
+E -> E1E2
+// X=Y=Z= (E1)
+E1-> E1E1 | VE3
+E3-> =
+// Literal (E2) E2E4-> binary, E6E7-> () E9E10->[a,b,c] E9E13-> list c. E18E2-> unary VE19-> functions E6E20-> tuples E23E24-> sets E23E28-> dicts E31E2-> double ops
+E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | True | False | None | A-Z | a-z | _
+E4-> E5E2
+E5-> + | - | * | /  | and | or | is | in | > | < | % //binary operators
+E6-> (
+E7-> E2E8
+E8-> )
+E9-> [
+E10-> E2E11 | ]
+E11-> E12E25 | ]
+E12-> ,
+E25-> E2E11 | ]
+E13-> VE14
+E14-> EF E15
+E15-> VE16 
+E16-> E17E35
+E35->E2E36
+E36-> ]
+E17-> in
+E18-> Not | + | - | ~ //unary operators 
+E19-> E6E20
+E20-> E2E21 | )
+E21-> E12E22 | )
+E22-> E2E21 | )
+E23-> {
+E24-> E2E26 | }
+E26-> E12E27 | }
+E27-> E2E26 | }
+E28-> E2E29 | }
+E29-> E12E30 | }
+E30-> E2E29 | }
+EF-> for
+// **, ==, >=, <=, //  handling
+E31-> E2E32
+E32-> E33E33 | E34E3
+E33-> * | = | /
+E34-> > | <
+
+// Raise 
+R-> R1R2
+R1-> raise
+R2-> VE19 //functions
+
+// Integers
+V3-> V4V5 | integer
+V4-> nonzero
+V5-> integer
+
+// Float
+V6-> V3V7
+V7-> V8V5
+V8-> .
+
+//Str
+V9-> V10V11
+V10-> "
+V11-> V12V10 | "
+V12-> V12V12 | literally anything
+
+//Chr
+V13-> V14V15
+V14-> '
+V15-> V12V14 | '

@@ -29,7 +29,7 @@ Rules = {
      "V13":[["V14","V15"]],
      "V14":[["'"]],
      "V15":[["V12","V14"],["'"]],
-     "E":[["E1","E2"],["E37","E38"]],
+     "E":[["E1","E2"],["E37","E38"],["V","E19"]],
      "E1": [["E1", "E1"],["V","E3"]],
      "E3":[["="]],
      "E2":[["E2","E4"],["E6","E7"],["E9","E10"],["E9","E13"],["E18","E2"],
@@ -170,9 +170,11 @@ w = "x = y = z = ( ( 5 * 2 ) + 3 )".split()
 l = list("zy=x=1+2+(3*4)+range(1,3,)")
 print(exprParse(l,"E"))
 '''
+'''
 # Tests with lineToList
 foo = open("foo.txt", "r+")
 line = foo.readline()
 print(lineToList(line))
 print("E" in exprParse(lineToList(line)))
 foo.close()
+'''

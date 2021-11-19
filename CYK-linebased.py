@@ -1,5 +1,5 @@
 # Reserved Words
-reserved=["for","True","False","in","and","or","is","Not","raise"]
+reserved=["for","True","False","in","and","or","is","Not","raise","while","pass","break","continue"]
 
 # Terminals
 uppercase=[[chr(ord('A')+i)] for i in range(26)]

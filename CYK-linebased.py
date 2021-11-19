@@ -126,7 +126,10 @@ def lineToList(s):
             temp=""
         else:
             temp+=c
-    l+=temp
+    if temp in reserved:
+        l.append(temp)
+    else:
+        l+=temp
     return l
   
 # Tests without lineToList

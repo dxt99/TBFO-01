@@ -63,7 +63,9 @@ def readFile(filename):
     ret=[]
     with open(filename,"r+") as foo:
         for line in foo:
-            ret.append(lineCYK.lineToList(line))
+            temp = lineCYK.lineToList(line)
+            if len(temp) != 0:
+                ret.append(temp)
     return ret
 
 s=str(input("Masukkan nama file:"))

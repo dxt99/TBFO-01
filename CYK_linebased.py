@@ -157,9 +157,9 @@ def lineToList(s):
             temp=""
         else:
             temp+=c
-    if temp in reserved:
+    if temp in reserved and len(temp)!=0:
         l.append(temp)
-    else:
+    elif not(temp in reserved) and len(temp)!=0:
         l+=temp
     return l
   

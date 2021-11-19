@@ -81,7 +81,7 @@ Rules = {
      "W1":[["while"]],
      "W2":[["E2", "W3"]],
      "W3":[[":"]],
-     "WW":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"], ["break"], ["continue"]],
+     "W4":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"]],
      # for loop
      "F":[["F1", "F2"]],
      "F1":[["for"]],
@@ -90,7 +90,7 @@ Rules = {
      "F4":[["in"]],
      "F5":[["E2", "F6"]],
      "F6":[[":"]],
-     "FF":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"], ["break"], ["continue"]],
+     "F7":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"]],
      # if
      "I":[["I1", "I2"]],
      "I1":[["if"]],
@@ -100,9 +100,9 @@ Rules = {
      "I5":[["elif"]],
      "I6":[["I7", "I3"]],
      "I7":[["else"]],
-     "II":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"]],
-     "I8":[["I1", "I9"], ["if"]], # count
-     "I9":[["I5", "I9"], ["elif"], ["else"]]
+     "I8":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"]],
+     #"I8":[["I1", "I9"], ["if"]], # count
+     #"I9":[["I5", "I9"], ["elif"], ["else"]]
     }
   
 # Parses expression/literal/variable (must be in one line)

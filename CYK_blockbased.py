@@ -44,7 +44,24 @@ def readFile(filename):
     with open(filename,"r+") as foo:
         for line in foo:
             ret.append(lineCYK.lineToList(line))
+        countif = []
+        nret = len(ret)
+        for i in range(nret):
+            if ret[i][0] == 'if' :
+                if len(countif)==0:
+                    countif.append("if")
+                else:
+                    ret.append(countif)
+                    countif = []
+                    countif.append("if")
+            elif ret[i][0] == "elif" :
+                countif.append("elif")
+            elif ret[i][0] == "else":
+                countif.append("else")
+            if (i == nret - 1) and (len(countif)!=0):
+                ret.append(countif)
     return ret
 
 s=str(input("Masukkan nama file:"))
-print(blockParse(readFile(s)))
+#print(blockParse(readFile(s)))
+print(readFile(s))

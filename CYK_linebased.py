@@ -149,11 +149,11 @@ def lineToList(s):
     temp=""
     # space and reserved words handling
     for c in s:
+        if temp in reserved:
+            l.append(temp)
+            temp=""
         if c==' ' or c=='\n':
-            if temp in reserved:
-                l.append(temp)
-            else:
-                l+=list(temp)
+            l+=list(temp)
             temp=""
         else:
             temp+=c

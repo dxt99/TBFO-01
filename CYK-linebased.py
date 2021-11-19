@@ -118,7 +118,7 @@ def lineToList(s):
     temp=""
     # space and reserved words handling
     for c in s:
-        if c==' ':
+        if c==' ' or c=='\n':
             if temp in reserved:
                 l.append(temp)
             else:

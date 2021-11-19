@@ -1,0 +1,39 @@
+* anything = if/for/while/assignment/instruction
+
+if
+
+I -> I1I2
+I1 -> if
+I2 -> E2I3
+I3 -> :
+I4 -> I5I2
+I5 -> elif
+I6 -> I7I3
+I7 -> else
+
+II -> {anything} | pass
+
+I8 -> I1I9 | if
+I9 -> I5I9 | elif | else
+
+for
+
+F -> F1F2 
+F1 -> for
+F2 -> VF3
+F3 -> F4F5
+F4 -> in
+F5 -> E2F6
+F6 -> :
+
+FF -> {anything} | pass | break | continue
+
+
+while
+
+W -> W1W2
+W1 -> while
+W2 -> E2W3
+W3 -> :
+
+WW -> {anything} | pass | break | continue

@@ -1,5 +1,5 @@
 # Reserved Words
-reserved=["for","True","False","in","and","or","is","Not","raise","while","pass","break","continue"]
+reserved=["for","True","False","in","and","or","is","Not","raise","while","pass","break","continue", "if", "elif", "else"]
 
 # Terminals
 uppercase=[[chr(ord('A')+i)] for i in range(26)]
@@ -75,7 +75,34 @@ Rules = {
      "E39":binary,
      "R":[["R1","R2"]],
      "R1":[["raise"]],
-     "R2":[["V","E19"]]
+     "R2":[["V","E19"]],
+     # while loop
+     "W":[["W1", "W2"]],
+     "W1":[["while"]],
+     "W2":[["E2", "W3"]],
+     "W3":[[":"]],
+     "WW":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"], ["break"], ["continue"]],
+     # for loop
+     "F":[["F1", "F2"]],
+     "F1":[["for"]],
+     "F2":[["V","F3"]],
+     "F3":[["F4","F5"]],
+     "F4":[["in"]],
+     "F5":[["E2", "F6"]],
+     "F6":[[":"]],
+     "FF":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"], ["break"], ["continue"]],
+     # if
+     "I":[["I1", "I2"]],
+     "I1":[["if"]],
+     "I2":[["E2", "I3"]],
+     "I3":[[":"]],
+     "I4":[["I5", "I2"]],
+     "I5":[["elif"]],
+     "I6":[["I7", "I3"]],
+     "I7":[["else"]],
+     "II":[["W1", "W2"], ["F1", "F2"], ["E1","E2"], ["I1", "I2"], ["pass"]],
+     "I8":[["I1", "I9"], ["if"]], # count
+     "I9":[["I5", "I9"], ["elif"], ["else"]]
     }
   
 # Parses expression/literal/variable (must be in one line)
@@ -84,7 +111,7 @@ Rules = {
 # S = "V" -> variable
 # S = "E2" -> literal
 # S = "R" -> raise
-def exprParse(w,S):
+def exprParse(w):
     n = len(w)
       
     # Initialize the table
@@ -115,7 +142,7 @@ def exprParse(w,S):
   
     # If word can be formed by rules 
     # of given grammar
-    return (S in T[0][n-1])
+    return (T[0][n-1])
 
 def lineToList(s):
     l=[]
@@ -147,5 +174,5 @@ print(exprParse(l,"E"))
 foo = open("foo.txt", "r+")
 line = foo.readline()
 print(lineToList(line))
-print(exprParse(lineToList(line),'E'))
+print("E" in exprParse(lineToList(line)))
 foo.close()

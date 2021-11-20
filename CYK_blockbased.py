@@ -1,5 +1,7 @@
 import CYK_linebased as lineCYK
 
+lastError=-1 #memoizes line errors
+
 Lang = {
         "S":[["S","S"],["E"],["S5","S6"],["S5","S7"],["S5","S8"],["S5","S3"],["S11","S12"],["S13", "S14"]],
         # if block
@@ -25,8 +27,8 @@ Lang = {
         }
 
 def blockParse(w):
+    global lastError
     n = len(w)
-      
     # Initialize the table
     U = [[set([]) for j in range(n)] for i in range(n)]
   
@@ -54,9 +56,15 @@ def blockParse(w):
                         # If a non-terminal is found
                         if len(rhs) == 2 and (rhs[0] in U[i][k]) and (rhs[1] in U[k+1][j]):
                             U[i][j].add(lhs)
+        if (len(U[0][j])==0):
+            lastError=j
+            return False
+        if not ('S' in U[0][j]):
+            lastError=j
 
     # If word can be formed by rules 
     # of given grammar
+    #print(U[0][n-1])
     return ('S' in U[0][n-1])
 
 def readFile(filename):
@@ -69,4 +77,7 @@ def readFile(filename):
     return ret
 
 s=str(input("Masukkan nama file:"))
-print(blockParse(readFile(s)))
+if (blockParse(readFile(s))):
+    print("Compile Success!")
+else:
+    print("Error in line",lastError+1, "!")

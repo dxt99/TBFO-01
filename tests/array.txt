@@ -1,0 +1,4 @@
+if __name__=='__main__':
+	a=[0 for i in range(3)]
+	for i in range(len(a)):
+		print(a[i]+3)

@@ -1,7 +1,12 @@
 // Variabel
-V -> V1V2 | A-Z | a-z | _
+V -> V1V2 | V1V16 | A-Z | a-z | _
 V1-> A-Z | a-z | _
 V2-> V2V2 | A-Z | a-z | 0-9 | _
+// Array
+V16-> V2V17
+V17-> E9V18
+V18-> E2E36
+
 
 FA
 	0-9	A-Z	a-z	_
@@ -26,7 +31,7 @@ E10-> E2E11 | ]
 E11-> E12E25 | ]
 E12-> ,
 E25-> E2E11 | ]
-E13-> VE14
+E13-> E2E14
 E14-> EF E15
 E15-> VE16 
 E16-> E17E35

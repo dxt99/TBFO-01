@@ -1,6 +1,9 @@
 # Reserved Words
 reserved=["for","True","False","in","and","or","is","Not","raise","while","pass","break","continue", "if", "elif", "else"]
 
+# Special Characters (ignored in lineToList)
+special=["\n"," ","\r","\t"]
+
 # Terminals
 uppercase=[[chr(ord('A')+i)] for i in range(26)]
 lowercase=[[chr(ord('a')+i)] for i in range(26)]
@@ -13,7 +16,7 @@ boolean=[["True"],["False"],["None"]]
 
 # Rules of the grammar
 Rules = {
-     "V": [["V1","V2"]]+uppercase+lowercase+[['_']],
+     "V": [["V1","V2"],["V1","V16"]]+uppercase+lowercase+[['_']],
      "V1":uppercase+lowercase+[['_']],
      "V2":[["V2","V2"]]+uppercase+lowercase+integer+[['_']],
      "V3":[["V4","V5"]]+nonzero,
@@ -29,13 +32,16 @@ Rules = {
      "V13":[["V14","V15"]],
      "V14":[["'"]],
      "V15":[["V12","V14"],["'"]],
+     "V16":[["V2","V17"],["E9","V18"]],
+     "V17":[["E9","V18"]],
+     "V18":[["E2","E36"]],
      "E":[["E1","E2"],["E37","E38"],["V","E19"]],
      "E1": [["E1", "E1"],["V","E3"]],
      "E3":[["="]],
      "E2":[["E2","E4"],["E6","E7"],["E9","E10"],["E9","E13"],["E18","E2"],
            ["V","E19"],["E6","E20"],["E23","E24"],["E23","E28"],["V1","V2"],
-           ["E31","E2"],["V10","V11"],["V14","V15"],["V4","V5"],["V3","V7"]]
-             +boolean+uppercase+lowercase+integer+[["_"]],
+           ["E31","E2"],["V10","V11"],["V14","V15"],["V4","V5"],["V3","V7"],
+           ["V1","V16"]]+boolean+uppercase+lowercase+integer+[["_"]],
      "E4":[["E5","E2"]],
      "E5":binary+boolop,
      "E6":[["("]],
@@ -46,7 +52,7 @@ Rules = {
      "E11":[["E12","E25"],["]"]],
      "E12":[[","]],
      "E25":[["E2","E11"],["]"]],
-     "E13":[["V","E14"]],
+     "E13":[["E2","E14"]],
      "E14":[["EF","E15"]],
      "EF":[["for"]],
      "E15":[["V","E16"]],
@@ -152,7 +158,7 @@ def lineToList(s):
         if temp in reserved:
             l.append(temp)
             temp=""
-        if c==' ' or c=='\n':
+        if c in special:
             l+=list(temp)
             temp=""
         else:
@@ -170,8 +176,9 @@ w = "x = y = z = ( ( 5 * 2 ) + 3 )".split()
 l = list("zy=x=1+2+(3*4)+range(1,3,)")
 print(exprParse(l,"E"))
 '''
-'''
+
 # Tests with lineToList
+'''
 foo = open("foo.txt", "r+")
 line = foo.readline()
 print(lineToList(line))

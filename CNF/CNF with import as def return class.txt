@@ -1,0 +1,48 @@
+*with
+M -> M1M2
+M1 -> with
+M2 -> M3M4
+M3 -> VE19 (method)
+M4 -> M5M6
+M5 -> as
+M6 -> VM7
+M7 -> :
+
+*import
+L -> L1 | L8
+L1 -> L2L3
+L2 -> L4L5
+L3 -> L6L7
+L4 -> from
+L5 -> VE19 (method)
+L6 -> import
+L7 -> VE19 (function)
+L8 -> L6L5
+
+*def
+D -> D1D2
+D1 -> def
+D2 -> D3D4
+D3 -> V (Variabel)
+D4 -> D5D6
+D5 -> (
+D6 -> D8D7
+D7 -> D11D12
+D8 -> V | empty | VD9
+D9 -> D10D8
+D10 -> ,
+D11 -> )
+D12 -> :
+
+*return
+O -> O1O2
+O1 -> return
+O2 -> V
+
+*class
+P -> P1P2
+P1 -> class
+P2 -> P3P4
+P3 -> V
+P4 -> :
+

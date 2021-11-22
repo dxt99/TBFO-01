@@ -8,16 +8,15 @@ M5 -> as
 M6 -> VM7
 M7 -> :
 
-*import
-L -> L1 | L8
-L1 -> L2L3
-L2 -> L4L5
-L3 -> L6L7
-L4 -> from
-L5 -> VE19 (method)
-L6 -> import
-L7 -> VE19 (function)
-L8 -> L6L5
+*import  
+L -> L1L2 | L3L4 | LIV
+L1-> LFV
+L2-> L3L4
+L3-> LIV
+L4-> LAV
+LF-> from
+LA-> as
+LI-> import
 
 *def
 D -> D1D2

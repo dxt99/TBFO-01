@@ -11,3 +11,5 @@
 - assignment operator
 - binary operators
 - void functions
+- import, def, class
+- inline comments (mostly)

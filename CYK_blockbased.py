@@ -3,10 +3,11 @@ import CYK_linebased as lineCYK
 lastError=-1 #memoizes line errors
 lineError="" #last error line
 lines=[] #saves lines
+lineNumber={}
 
 Lang = {
         "S":[["S","S"],["E"],["S5","S6"],["S5","S7"],["S5","S8"],["S5","S3"],
-             ["S11","S12"],["S13", "S14"],["C"]],
+             ["S11","S12"],["S13", "S14"],["C"],["S15","S"],["O"],["S16","S"],["L"],["M"]],
         # if block
         "SI":[["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"]], # not necessary
         "S1":[["S10","S3"], ["S1","S1"]],
@@ -26,7 +27,13 @@ Lang = {
         # for block
         "SF":[["S13", "S14"]], # not necessary
         "S13":[["F"]],
-        "S14":[["F7"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S14", "S14"]]
+        "S14":[["F7"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S14", "S14"]],
+        # def block
+        "SD":[["S15","S"]],
+        "S15":[["D"]],
+        # class block
+        "SC":[["S16","S"]],
+        "S16":[["P"]]
         }
 
 def blockParse(w):
@@ -38,7 +45,9 @@ def blockParse(w):
     
     for j in range(0, n):
         # Parse line
+        #print(w[j])
         temp=lineCYK.exprParse(w[j])
+        #print(temp)
         
         for l, rule in Lang.items():
             for r in rule:
@@ -56,20 +65,29 @@ def blockParse(w):
             lineError=lines[j]
             lastError=j
             return False
-        if not ('S' in dp[0][j]):
+        if (lastError==-1) and (not ('S' in dp[0][j])):
             lineError=lines[j]
             lastError=j
+        if ('S' in dp[0][j]):
+            lineError=""
+            lastError=-1
 
     # If word can be formed by rules 
     # of given grammar
-    # print(U[0][n-1])
+    #print(dp[0][n-1])
     return ('S' in dp[0][n-1])
 
 def readFile(filename):
+    global lineNumber
     ret=[]
+    cnt=0
     with open(filename,"r+") as foo:
         for line in foo:
+            cnt+=1
+            if line=="\n" or line=="":
+                continue
             lines.append(line)
+            lineNumber[line]=cnt
             temp = lineCYK.lineToList(line)
             if len(temp) != 0:
                 ret.append(temp)
@@ -79,5 +97,5 @@ s=str(input("Masukkan nama file: "))
 if (blockParse(readFile(s))):
     print("Compile Success!")
 else:
-    print(f"Error in line {lastError+1}!")
+    print(f"Error in line {lineNumber[lineError]}!")
     print(f"Error in : {(lineError)}")

@@ -1,5 +1,7 @@
 # Reserved Words
-reserved=["for","True","False","in","and","or","is","Not","raise","while","pass","break","continue", "if", "elif", "else"]
+reserved=["for","True","False","in","and","or","is","Not","raise","while",
+          "pass","break","continue", "if", "elif", "else","import","from",
+          "as","return","class","def"]
 
 # Special Characters (ignored in lineToList)
 special=["\n"," ","\r","\t"]
@@ -35,7 +37,7 @@ Rules = {
      "V16":[["V2","V17"],["E9","V18"]],
      "V17":[["E9","V18"]],
      "V18":[["E2","E36"]],
-     "E":[["E1","E2"],["E37","E38"],["V","E19"],["E40","E38"]],
+     "E":[["E1","E2"],["E37","E38"],["V","E19"],["E40","E38"],["E","C"]],
      "E1": [["E1", "E1"],["V","E3"]],
      "E3":[["="]],
      "E2":[["E2","E4"],["E6","E7"],["E9","E10"],["E9","E13"],["E18","E2"],
@@ -87,13 +89,13 @@ Rules = {
      "R1":[["raise"]],
      "R2":[["V","E19"]],
      # while loop
-     "W":[["W1", "W2"]],
+     "W":[["W1", "W2"],["W","C"]],
      "W1":[["while"]],
      "W2":[["E2", "W3"]],
      "W3":[[":"]],
      "W4":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"]],
      # for loop
-     "F":[["F1", "F2"]],
+     "F":[["F1", "F2"],["F","C"]],
      "F1":[["for"]],
      "F2":[["V","F3"]],
      "F3":[["F4","F5"]],
@@ -102,19 +104,19 @@ Rules = {
      "F6":[[":"]],
      "F7":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"]],
      # if
-     "I":[["I1", "I2"]],
+     "I":[["I1", "I2"],["I","C"]],
      "I1":[["if"]],
      "I2":[["E2", "I3"]],
      "I3":[[":"]],
-     "I4":[["I5", "I2"]],
+     "I4":[["I5", "I2"],["I4","C"]],
      "I5":[["elif"]],
-     "I6":[["I7", "I3"]],
+     "I6":[["I7", "I3"],["I6","C"]],
      "I7":[["else"]],
-     "I8":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"]],
+     "I8":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"],["I8","C"]],
      #"I8":[["I1", "I9"], ["if"]], # count
      #"I9":[["I5", "I9"], ["elif"], ["else"]]
      #with
-     "M":[["M1", "M2"]],
+     "M":[["M1", "M2"],["M","C"]],
      "M1":[["with"]],
      "M2":[["M3", "M4"]],
      "M3":[["V", "E19"]],
@@ -123,79 +125,43 @@ Rules = {
      "M6":[["V", "M7"]],
      "M7":[[":"]],
      #import
-     "L":[["L1"],["L8"]],
-     "L1":[["L2", "L3"]],
-     "L2":[["L4", "L5"]],
-     "L3":[["L6", "L7"]],
-     "L4":[["from"]],
-     "L5":[["V", "E19"]],
-     "L6":[["import"]],
-     "L7":[["V"]],
-     "L8":[["L6","L5"]],
+     "L":[["L1","L2"],["L3","L4"],["LI","V"]],
+     "L1":[["LF","V"]],
+     "LF":[["from"]],
+     "L2":[["L3","L4"]],
+     "L3":[["LI","V"]],
+     "LI":[["import"]],
+     "L4":[["LA","V"]],
+     "LA":[["as"]],
      #def
      "D":[["D1", "D2"]],
      "D1":[["def"]],
      "D2":[["D3", "D4"]],
-     "D3":[["V"]],
+     "D3":[["V1","V2"],["V1","V16"]]+uppercase+lowercase+[['_']],
      "D4":[["D5", "D6"]],
      "D5":[["("]],
      "D6":[["D8", "D7"]],
      "D7":[["D11", "D12"]],
-     "D8":[["V"], [""], ["V","D9"]],
+     "D8":[[""], ["V","D9"]]+[["V1","V2"],["V1","V16"]]+uppercase+lowercase+[['_']],
      "D9":[["D10", "D8"]],
      "D10":[[","]],
      "D11":[[")"]],
      "D12":[[":"]],
      #return
-     "O":[["O1", "O2"]],
+     "O":[["O1", "E2"],["O","C"]],
      "O1":[["return"]],
-     "O2":[["V"]],
      #class
-     "P":[["P1", "P2"]],
+     "P":[["P1", "P2"],["P","C"]],
      "P1":[["class"]],
      "P2":[["P3", "P4"]],
-     "P3":[["V"]],
+     "P3":[["V1","V2"],["V1","V16"]]+uppercase+lowercase+[['_']],
      "P4":[[":"]],
      #comments
      "C":[["C1","C2"]],
      "C1":[["#"]],
      "C2":[["C2","C2"],["$"]]
     }
-  
-'''
-def exprParse(w):
-    n = len(w)
-      
-    # Initialize the table
-    T = [[set([]) for j in range(n)] for i in range(n)]
-  
-    # Filling in the table
-    for j in range(0, n):
-  
-        # Iterate over the rules
-        for lhs, rule in Rules.items():
-            for rhs in rule:
-                # If a terminal is found
-                if len(rhs) == 1 and (rhs[0] == w[j] or rhs[0]=='$'):
-                    T[j][j].add(lhs)
-  
-        for i in range(j, -1, -1):   
-               
-            # Iterate over the range i to j + 1   
-            for k in range(i, j):     
-  
-                # Iterate over the rules
-                for lhs, rule in Rules.items():
-                    for rhs in rule:
-                          
-                        # If a terminal is found
-                        if len(rhs) == 2 and (rhs[0] in T[i][k]) and (rhs[1] in T[k+1][j]):
-                            T[i][j].add(lhs)
-  
-    # If word can be formed by rules 
-    # of given grammar
-    return (T[0][n-1])
-'''
+
 def exprParse(line):
     # Bottom-Up DP
     n=len(line)

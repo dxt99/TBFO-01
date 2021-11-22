@@ -1,0 +1,10 @@
+import stuff
+from numpy import array as ar
+import pandas as pd
+
+def fun(x):
+    def g(y):
+        return y+3
+	break
+    return g(x)
+print(fun(5))

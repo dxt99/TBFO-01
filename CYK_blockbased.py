@@ -33,45 +33,37 @@ def blockParse(w):
     global lastError
     global lineError
     n = len(w)
-    # Initialize the table
-    U = [[set([]) for j in range(n)] for i in range(n)]
-  
-    # Filling in the table
+    # Initialize the dp table
+    dp = [[set([]) for j in range(n)] for i in range(n)]
+    
     for j in range(0, n):
-  
-        # Find possible non terminals
-        U[j][j]=lineCYK.exprParse(w[j])
+        # Parse line
+        temp=lineCYK.exprParse(w[j])
         
-        for lhs, rule in Lang.items():
-            for rhs in rule:
-                # If a terminal is found
-                if len(rhs) == 1 and (rhs[0] in U[j][j]):
-                    U[j][j].add(lhs)
-  
+        for l, rule in Lang.items():
+            for r in rule:
+                # Base cases
+                if len(r) == 1 and (r[0] in temp):
+                    dp[j][j].add(l)
+        # DP Transitions
         for i in range(j, -1, -1):   
-               
-            # Iterate over the range i to j + 1   
             for k in range(i, j):     
-  
-                # Iterate over the rules
-                for lhs, rule in Lang.items():
-                    for rhs in rule:
-                          
-                        # If a non-terminal is found
-                        if len(rhs) == 2 and (rhs[0] in U[i][k]) and (rhs[1] in U[k+1][j]):
-                            U[i][j].add(lhs)
-        if (len(U[0][j])==0):
+                for l, rule in Lang.items():
+                    for r in rule:
+                        if len(r) == 2 and (r[0] in dp[i][k]) and (r[1] in dp[k+1][j]):
+                            dp[i][j].add(l)
+        if (len(dp[j][j])==0):
             lineError=lines[j]
             lastError=j
             return False
-        if not ('S' in U[0][j]):
+        if not ('S' in dp[0][j]):
             lineError=lines[j]
             lastError=j
 
     # If word can be formed by rules 
     # of given grammar
-    #print(U[0][n-1])
-    return ('S' in U[0][n-1])
+    # print(U[0][n-1])
+    return ('S' in dp[0][n-1])
 
 def readFile(filename):
     ret=[]

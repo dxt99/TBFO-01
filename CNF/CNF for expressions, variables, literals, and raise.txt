@@ -20,7 +20,7 @@ E -> E1E2 | E37E38 | E40E38 | VE19
 E1-> E1E1 | VE3
 E3-> =
 // Literal (E2) E2E4-> binary, E6E7-> () E9E10->[a,b,c] E9E13-> list c. E18E2-> unary VE19-> functions E6E20-> tuples E23E24-> sets E23E28-> dicts E31E2-> double ops
-E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | True | False | None | A-Z | a-z | _
+E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | V1V16 (array) | True | False | None | A-Z | a-z | _
 E4-> E5E2
 E5-> + | - | * | /  | and | or | is | in | > | < | % | & | | | ^//binary operators
 E6-> (

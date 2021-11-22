@@ -162,12 +162,7 @@ Rules = {
      "C2":[["C2","C2"],["$"]]
     }
   
-# Parses expression/literal/variable (must be in one line)
-# Start symbols 
-# S = "E" -> expression
-# S = "V" -> variable
-# S = "E2" -> literal
-# S = "R" -> raise
+'''
 def exprParse(w):
     n = len(w)
       
@@ -200,6 +195,32 @@ def exprParse(w):
     # If word can be formed by rules 
     # of given grammar
     return (T[0][n-1])
+'''
+def exprParse(line):
+    # Bottom-Up DP
+    n=len(line)
+    # Initialize the dp table
+    dp = [[set([]) for j in range(n)] for i in range(n)]
+    
+    for j in range(n):
+        # Fill base cases
+        for l, lang in Rules.items():
+            for r in lang:
+                # Only adds to table if terminal
+                if len(r)==1 and (r[0]==line[j] or r[0]=='$'):
+                    dp[j][j].add(l) # Variable Accepted
+        
+        # DP Transitions
+        for i in range(j,-1,-1):
+            # Scan downwards
+            for k in range(i,j):
+                # Check if variable is accepted
+                for l, lang in Rules.items():
+                    for r in lang:
+                        if len(r)==2 and (r[0] in dp[i][k]) and (r[1] in dp[k+1][j]):
+                            dp[i][j].add(l)
+    # Returns all starting points possible
+    return dp[0][n-1]
 
 def lineToList(s):
     l=[]

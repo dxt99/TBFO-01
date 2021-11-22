@@ -15,14 +15,14 @@ FA
 
 
 // Ekspresi, E1E2 -> x=y=z=literal
-E -> E1E2 | E37E38
+E -> E1E2 | E37E38 | E40E38 | VE19
 // X=Y=Z= (E1)
 E1-> E1E1 | VE3
 E3-> =
 // Literal (E2) E2E4-> binary, E6E7-> () E9E10->[a,b,c] E9E13-> list c. E18E2-> unary VE19-> functions E6E20-> tuples E23E24-> sets E23E28-> dicts E31E2-> double ops
 E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | True | False | None | A-Z | a-z | _
 E4-> E5E2
-E5-> + | - | * | /  | and | or | is | in | > | < | % //binary operators
+E5-> + | - | * | /  | and | or | is | in | > | < | % | & | | | ^//binary operators
 E6-> (
 E7-> E2E8
 E8-> )
@@ -51,13 +51,17 @@ E28-> E2E29 | }
 E29-> E12E30 | }
 E30-> E2E29 | }
 EF-> for
-// **, ==, >=, <=, //  handling
+// **, ==, >=, <=, //, <<, >>  handling
 E31-> E2E32
 E32-> E33E33 | E34E3
-E33-> * | = | /
+E33-> * | = | / | < | >
 E34-> > | <
-E37-> VE5
+E37-> VE39
 E38-> E3E2
+E39-> binary
+E40-> VE41
+E41-> E42E42
+E42-> * | / | < | >
 
 // Raise 
 R-> R1R2

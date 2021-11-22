@@ -152,7 +152,10 @@ Rules = {
      "P2":[["P3", "P4"]],
      "P3":[["V"]],
      "P4":[[":"]],
-
+     #comments
+     "C":[["C1","C2"]],
+     "C1":[["#"]],
+     "C2":[["C2","C2"],["|"]]
     }
   
 # Parses expression/literal/variable (must be in one line)

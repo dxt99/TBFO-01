@@ -1,9 +1,12 @@
 import CYK_linebased as lineCYK
 
 lastError=-1 #memoizes line errors
+lineError="" #last error line
+lines=[] #saves lines
 
 Lang = {
-        "S":[["S","S"],["E"],["S5","S6"],["S5","S7"],["S5","S8"],["S5","S3"],["S11","S12"],["S13", "S14"]],
+        "S":[["S","S"],["E"],["S5","S6"],["S5","S7"],["S5","S8"],["S5","S3"],
+             ["S11","S12"],["S13", "S14"],["C"]],
         # if block
         "SI":[["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"]], # not necessary
         "S1":[["S10","S3"], ["S1","S1"]],
@@ -28,6 +31,7 @@ Lang = {
 
 def blockParse(w):
     global lastError
+    global lineError
     n = len(w)
     # Initialize the table
     U = [[set([]) for j in range(n)] for i in range(n)]
@@ -57,9 +61,11 @@ def blockParse(w):
                         if len(rhs) == 2 and (rhs[0] in U[i][k]) and (rhs[1] in U[k+1][j]):
                             U[i][j].add(lhs)
         if (len(U[0][j])==0):
+            lineError=lines[j]
             lastError=j
             return False
         if not ('S' in U[0][j]):
+            lineError=lines[j]
             lastError=j
 
     # If word can be formed by rules 
@@ -71,13 +77,15 @@ def readFile(filename):
     ret=[]
     with open(filename,"r+") as foo:
         for line in foo:
+            lines.append(line)
             temp = lineCYK.lineToList(line)
             if len(temp) != 0:
                 ret.append(temp)
     return ret
 
-s=str(input("Masukkan nama file:"))
+s=str(input("Masukkan nama file: "))
 if (blockParse(readFile(s))):
     print("Compile Success!")
 else:
-    print("Error in line",lastError+1, "!")
+    print(f"Error in line {lastError+1}!")
+    print(f"Error in : {(lineError)}")

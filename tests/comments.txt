@@ -1,0 +1,7 @@
+x=1+1
+x*=2
+# tis a comment
+#and another one
+##and one more
+# raise and or not def class
+print(x)

@@ -1,9 +1,4 @@
-if (1 >= 0):
-    print("if_1.txt")
-    if 2 == 2:
-        pass
-    elif 2 != 2:
-        k = 1
-    else:
-        k = 2
-    print(k)
+if (100000 % 2 == 0):
+    print("%")
+else:
+    print("!")

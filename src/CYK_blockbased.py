@@ -123,9 +123,9 @@ def readFile(filename):
         with open(filename,"r+") as foo:
             for line in foo:
                 cnt+=1
-                if line=="\n" or line=="":
-                    continue
                 temp = lineCYK.lineToList(line)
+                if len(temp) == 0:
+                    continue
                 if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment):
                     inComment = True
                     continue

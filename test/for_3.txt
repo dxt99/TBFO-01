@@ -1,0 +1,13 @@
+for i in a:
+    print(i)
+    for j in "forloop":
+        a = []
+        for k in range(10000):
+            print(a)
+        for l in a:
+            if l == "":
+                break
+            else:
+                continue
+        for x in range(1, 10000, 11):
+            print(x+a[0]+55)

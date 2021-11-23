@@ -1,7 +1,7 @@
 # Reserved Words
 reserved=["for","True","False","in","and","or","is","Not","raise","while",
           "pass","break","continue", "if", "elif", "else","import","from",
-          "as","return","class","def"]
+          "as","return","class","def", "with"]
 
 # Special Characters (ignored in lineToList)
 special=["\n"," ","\r","\t"]

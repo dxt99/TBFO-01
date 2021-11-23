@@ -18,12 +18,12 @@ boolean=[["True"],["False"],["None"]]
 
 # Rules of the grammar
 Rules = {
-     "V": [["V1","V2"],["V1","V16"]]+uppercase+lowercase+[['_']],
+     "V": [["V1","V2"],["V","V17"]]+uppercase+lowercase+[['_']],
      "V1":uppercase+lowercase+[['_']],
      "V2":[["V2","V2"]]+uppercase+lowercase+integer+[['_']],
-     "V3":[["V4","V5"]]+nonzero,
+     "V3":[["V4","V5"]]+integer,
      "V4":nonzero,
-     "V5":integer,
+     "V5":integer+[["V5","V5"]],
      "V6":[["V3","V7"]],
      "V7":[["V8","V5"]],
      "V8":[["."]],
@@ -35,7 +35,7 @@ Rules = {
      "V14":[["'"]],
      "V15":[["V12","V14"],["'"]],
      "V16":[["V2","V17"],["E9","V18"]],
-     "V17":[["E9","V18"]],
+     "V17":[["E9","V18"],["V17","V17"]],
      "V18":[["E2","E36"]],
      "E":[["E1","E2"],["E37","E38"],["V","E19"],["E40","E38"],["E","C"]],
      "E1": [["E1", "E1"],["V","E3"]],
@@ -43,7 +43,7 @@ Rules = {
      "E2":[["E2","E4"],["E6","E7"],["E9","E10"],["E9","E13"],["E18","E2"],
            ["V","E19"],["E6","E20"],["E23","E24"],["E23","E28"],["V1","V2"],
            ["E31","E2"],["V10","V11"],["V14","V15"],["V4","V5"],["V3","V7"],
-           ["V1","V16"]]+boolean+uppercase+lowercase+integer+[["_"]],
+           ["V","V17"]]+boolean+uppercase+lowercase+integer+[["_"]],
      "E4":[["E5","E2"]],
      "E5":binary+boolop,
      "E6":[["("]],

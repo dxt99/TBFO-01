@@ -1,10 +1,10 @@
 // Variabel
-V -> V1V2 | V1V16 | A-Z | a-z | _
+V -> V1V2 | VV17 | A-Z | a-z | _
 V1-> A-Z | a-z | _
 V2-> V2V2 | A-Z | a-z | 0-9 | _
 // Array
-V16-> V2V17
-V17-> E9V18
+V16-> VV17
+V17-> E9V18 | V17V17
 V18-> E2E36
 
 
@@ -20,7 +20,7 @@ E -> E1E2 | E37E38 | E40E38 | VE19
 E1-> E1E1 | VE3
 E3-> =
 // Literal (E2) E2E4-> binary, E6E7-> () E9E10->[a,b,c] E9E13-> list c. E18E2-> unary VE19-> functions E6E20-> tuples E23E24-> sets E23E28-> dicts E31E2-> double ops
-E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | V1V16 (array) | True | False | None | A-Z | a-z | _
+E2-> E2E4 | E6E7 | E9E10 | E9E13 | E18E2 | VE19 | E6E20 | E23E24 | E23E28 | E31E2 | V1V2 | V10V11 (str) | V14V15 (char) | V4V5 | integer | V3V7 (float) | VV17 (array) | True | False | None | A-Z | a-z | _
 E4-> E5E2
 E5-> + | - | * | /  | and | or | is | in | > | < | % | & | | | ^//binary operators
 E6-> (
@@ -71,7 +71,7 @@ R2-> VE19 //functions
 // Integers
 V3-> V4V5 | integer
 V4-> nonzero
-V5-> integer
+V5-> integer | V5V5
 
 // Float
 V6-> V3V7

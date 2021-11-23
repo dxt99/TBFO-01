@@ -1,2 +1,2 @@
-with open('file-path', 'w') as file: 
-    file.write('Lorem ipsum')
+with open('output.txt', 'w') as f:
+    f.write('Hi there!')

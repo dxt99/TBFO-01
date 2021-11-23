@@ -55,7 +55,10 @@ Lang = {
         "S17D":[["P"]],
         # class block
         "SC":[["S17","S"]],
-        "S17":[["P"]]
+        "S17":[["P"]],
+        #with block
+        "ST":[["S18","S"]],
+        "S18":[["M"]],
         }
 
 def blockParse(w):

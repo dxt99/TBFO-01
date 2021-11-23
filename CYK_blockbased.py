@@ -7,12 +7,12 @@ lineNumber={}
 
 Lang = {
         "S":[["S","S"],["E"],["S5","S6"],["S5","S7"],["S5","S8"],["S5","S3"],
-             ["S11","S12"],["S13", "S14"],["C"],["S15","S"],["O"],["S16","S"],["L"],["M"]],
+             ["S11","S12"],["S13", "S14"],["C"],["S15","S16"],["S17","S"],["L"],["M"]],
         # if block
         "SI":[["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"]], # not necessary
         "S1":[["S10","S3"], ["S1","S1"]],
         "S2":[["S4","S3"]],
-        "S3":[["I8"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S3","S3"]],
+        "S3":[["I8"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S3","S3"], ["S15","S16"], ["S17","S"]],
         "S4":[["I6"]],
         "S5":[["I"]],
         "S6":[["S3","S9"]],
@@ -23,17 +23,39 @@ Lang = {
         # while block
         "SW":[["S11","S12"]], # not necessary
         "S11":[["W"]],
-        "S12":[["W4"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S12", "S12"]],
+        "S12":[["W4"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S12", "S12"], ["S15","S16"], ["S17","S"]],
         # for block
         "SF":[["S13", "S14"]], # not necessary
         "S13":[["F"]],
-        "S14":[["F7"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S14", "S14"]],
+        "S14":[["F7"], ["S5", "S6"], ["S5", "S7"], ["S5", "S8"], ["S5", "S3"], ["S11", "S12"], ["S13", "S14"], ["S14", "S14"], ["S15","S16"], ["S17","S"]],
         # def block
-        "SD":[["S15","S"]],
+        "SSD":[["SSD","SSD"],["E"],["S5D","S6D"],["S5D","S7D"],["S5D","S8D"],["S5D","S3D"],
+             ["S11D","S12D"],["S13D", "S14D"],["C"],["S15","S16"],["S17D","SSD"],["L"],["M"]],
+        "SD":[["S15","S16"]],
         "S15":[["D"]],
+        "S16":[["O"], ["S5D", "S6D"], ["S5D", "S7D"], ["S5D", "S8D"], ["S5D", "S3D"], ["S11D", "S12D"], ["S13D", "S14D"], ["S16", "S16"], ["S15","S16"], ["S17D","SSD"]],
+        "SID":[["S5D", "S6D"], ["S5D", "S7D"], ["S5D", "S8D"], ["S5D", "S3D"]], # not necessary
+        "S1D":[["S10D","S3D"], ["S1D","S1D"]],
+        "S2D":[["S4D","S3D"]],
+        "S3D":[["I9"], ["S5D", "S6D"], ["S5D", "S7D"], ["S5D", "S8D"], ["S5D", "S3D"], ["S11D", "S12D"], ["S13D", "S14D"], ["S3D","S3D"], ["S15","S16"], ["S17D","SSD"]],
+        "S4D":[["I6"]],
+        "S5D":[["I"]],
+        "S6D":[["S3D","S9D"]],
+        "S7D":[["S3D","S1D"]],
+        "S8D":[["S3D","S2D"]],
+        "S9D":[["S1D","S2D"]],
+        "S10D":[["I4"]],
+        "SWD":[["S11D","S12D"]], # not necessary
+        "S11D":[["W"]],
+        "S12D":[["W5"], ["S5D", "S6D"], ["S5D", "S7D"], ["S5D", "S8D"], ["S5D", "S3D"], ["S11D", "S12D"], ["S13D", "S14D"], ["S12D", "S12D"], ["S15","S16"], ["S17D","SSD"]],
+        "SFD":[["S13D", "S14D"]], # not necessary
+        "S13D":[["F"]],
+        "S14D":[["F8"], ["S5D", "S6D"], ["S5D", "S7D"], ["S5D", "S8D"], ["S5D", "S3D"], ["S11D", "S12D"], ["S13D", "S14D"], ["S14D", "S14D"], ["S15","S16"], ["S17D","SSD"]],
+        "SCD":[["S17D","SSD"]],
+        "S17D":[["P"]],
         # class block
-        "SC":[["S16","S"]],
-        "S16":[["P"]]
+        "SC":[["S17","S"]],
+        "S17":[["P"]]
         }
 
 def blockParse(w):
@@ -81,16 +103,28 @@ def readFile(filename):
     global lineNumber
     ret=[]
     cnt=0
+    inComment = False
     with open(filename,"r+") as foo:
         for line in foo:
             cnt+=1
             if line=="\n" or line=="":
                 continue
+            temp = lineCYK.lineToList(line)
+            if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment):
+                inComment = True
+                continue
+            if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and inComment:
+                inComment = False
+                continue
+            if inComment:
+                continue
+            if temp[0]=="#":
+                continue
             lines.append(line)
             lineNumber[line]=cnt
-            temp = lineCYK.lineToList(line)
             if len(temp) != 0:
                 ret.append(temp)
+    print(ret)
     return ret
 
 s=str(input("Masukkan nama file: "))

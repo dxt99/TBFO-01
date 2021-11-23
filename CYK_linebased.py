@@ -94,6 +94,7 @@ Rules = {
      "W2":[["E2", "W3"]],
      "W3":[[":"]],
      "W4":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"], ["W4","C"]],
+     "W5":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"], ["W5","C"], ["return"],["O1", "E2"]],
      # for loop
      "F":[["F1", "F2"],["F","C"]],
      "F1":[["for"]],
@@ -103,6 +104,7 @@ Rules = {
      "F5":[["E2", "F6"]],
      "F6":[[":"]],
      "F7":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"], ["F7","C"]],
+     "F8":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["break"], ["continue"], ["F8","C"], ["return"],["O1", "E2"]],
      # if
      "I":[["I1", "I2"],["I","C"]],
      "I1":[["if"]],
@@ -113,6 +115,7 @@ Rules = {
      "I6":[["I7", "I3"],["I6","C"]],
      "I7":[["else"]],
      "I8":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["I8","C"]],
+     "I9":[["E1","E2"], ["E37","E38"], ["V","E19"], ["pass"], ["I9","C"], ["return"],["O1", "E2"]],
      #with
      "M":[["M1", "M2"],["M","C"]],
      "M1":[["with"]],
@@ -146,7 +149,7 @@ Rules = {
      "D11":[[")"]],
      "D12":[[":"]],
      #return
-     "O":[["O1", "E2"],["O","C"]],
+     "O":[["return"],["O1", "E2"],["O","C"]],
      "O1":[["return"]],
      #class
      "P":[["P1", "P2"],["P","C"]],
@@ -214,10 +217,9 @@ print(exprParse(l,"E"))
 '''
 
 # Tests with lineToList
-'''
-foo = open("foo.txt", "r+")
+
+'''foo = open("tests\inputAcc.py", "r+")
 line = foo.readline()
 print(lineToList(line))
-print("E" in exprParse(lineToList(line)))
-foo.close()
-'''
+print("D" in exprParse(lineToList(line)))
+foo.close()'''

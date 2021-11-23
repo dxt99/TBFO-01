@@ -1,2 +1,2 @@
 while x==2:
-	pass
+	x = 2

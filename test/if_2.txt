@@ -1,0 +1,4 @@
+if (N % 2 == 0):
+    print("genap")
+else: # N % 2 == 1
+    print("ganjil")

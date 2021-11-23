@@ -104,32 +104,29 @@ def readFile(filename):
     ret=[]
     cnt=0
     inComment = False
-    with open(filename,"r+") as foo:
-        for line in foo:
-            cnt+=1
-            if line=="\n" or line=="":
-                continue
-            temp = lineCYK.lineToList(line)
-            if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment):
-                inComment = True
-                continue
-            if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and inComment:
-                inComment = False
-                continue
-            if inComment:
-                continue
-            if temp[0]=="#":
-                continue
-            lines.append(line)
-            lineNumber[line]=cnt
-            if len(temp) != 0:
-                ret.append(temp)
-    print(ret)
+    try:
+        with open(filename,"r+") as foo:
+            for line in foo:
+                cnt+=1
+                if line=="\n" or line=="":
+                    continue
+                temp = lineCYK.lineToList(line)
+                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment):
+                    inComment = True
+                    continue
+                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and inComment:
+                    inComment = False
+                    continue
+                if inComment:
+                    continue
+                if temp[0]=="#":
+                    continue
+                lines.append(line)
+                lineNumber[line]=cnt
+                if len(temp) != 0:
+                    ret.append(temp)
+    except FileNotFoundError:
+        print("\nFile Tidak Ditemukan!\n")
+        return False
+    #print(ret)
     return ret
-
-s=str(input("Masukkan nama file: "))
-if (blockParse(readFile(s))):
-    print("Compile Success!")
-else:
-    print(f"Error in line {lineNumber[lineError]}!")
-    print(f"Error in : {(lineError)}")

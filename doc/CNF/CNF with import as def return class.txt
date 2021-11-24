@@ -55,7 +55,7 @@ L -> fromVimportVasV | importVasV | importV | fromVimportV
 def
 D -> defV(D1): | DC
 D1 -> {blank} | VD2 | V
-D2 -> ,
+D2 -> , | ,V | D2D2
 
 return
 O -> return | returnE2 | OC

@@ -3,7 +3,7 @@ import CYK_blockbased as CYK
 lang=False
 while lang==False:
     s=str(input("Masukkan nama file: "))
-    s="../test/"+s
+    s="test/"+s
     lang=CYK.readFile(s)
     
 if (CYK.blockParse(lang)):

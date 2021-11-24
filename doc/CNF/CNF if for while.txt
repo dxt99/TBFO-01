@@ -37,3 +37,24 @@ W2 -> E2W3
 W3 -> :
 
 WW -> {anything} | pass | break | continue
+
+
+CFG
+
+if
+I -> ifE2: | IC 
+I1 -> elifE2: | I1C 
+I2 -> else: | I2C
+I3 -> E | pass | I3C
+I4 -> E | pass | I4C | O # if block inside def
+I5 -> E | pass | break | continue | I5C # if block inside loop
+
+while
+W -> whileE2: | WC
+W1 -> E | pass | break | continue | W1C
+W2 -> E | pass | break | continue | W2C | O # while block inside def
+
+for
+F -> forVinE2: | FC
+F1 -> E | pass | break | continue | W1C
+F2 -> E | pass | break | continue | W1C | O # for block inside def

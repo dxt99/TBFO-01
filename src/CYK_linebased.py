@@ -1,3 +1,4 @@
+import FA
 # Reserved Words
 reserved=["for","True","False","in","and","or","is","Not","raise","while",
           "pass","break","continue", "if", "elif", "else","import","from",
@@ -176,11 +177,15 @@ def exprParse(line):
     
     for j in range(n):
         # Fill base cases
+        FA.contFA(line[j])
         for l, lang in Rules.items():
             for r in lang:
                 # Only adds to table if terminal
                 if len(r)==1 and (r[0]==line[j] or r[0]=='$'):
                     dp[j][j].add(l) # Variable Accepted
+                    # Check FA
+                    if FA.stat():
+                        dp[j][j].add('V')
         
         # DP Transitions
         for i in range(j,-1,-1):

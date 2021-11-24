@@ -143,5 +143,4 @@ def readFile(filename):
     except FileNotFoundError:
         print("\nFile Tidak Ditemukan!\n")
         return False
-    print(ret)
     return ret

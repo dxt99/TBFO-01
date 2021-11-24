@@ -202,6 +202,7 @@ def exprParse(line):
 def lineToList(s):
     l=[]
     temp=""
+    word=""
     # space and reserved words handling
     for c in s:
         if c in special and temp in reserved:
@@ -212,6 +213,18 @@ def lineToList(s):
             temp=""
         else:
             temp+=c
+            
+        # pseudo KMP    
+        if (0<=(ord(c)-ord('A'))<26) or (0<=(ord(c)-ord('a'))<26):
+            word+=c
+        else:
+            word=""
+        if word in reserved:
+            l+=list(temp[:(len(temp)-len(word))])
+            l.append(word)
+            word=""
+            temp=""
+        
     if temp in reserved and len(temp)!=0:
         l.append(temp)
     elif not(temp in reserved) and len(temp)!=0:

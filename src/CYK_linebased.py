@@ -204,7 +204,7 @@ def lineToList(s):
     temp=""
     # space and reserved words handling
     for c in s:
-        if temp in reserved:
+        if c in special and temp in reserved:
             l.append(temp)
             temp=""
         if c in special:

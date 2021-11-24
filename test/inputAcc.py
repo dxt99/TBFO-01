@@ -1,4 +1,6 @@
 def do_something(x):
+    ''' This is a sample multiline comment
+    '''
     if x == 0:
         return 0
     elif x + 4 == 1:

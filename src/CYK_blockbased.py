@@ -118,7 +118,8 @@ def readFile(filename):
     global lineNumber
     ret=[]
     cnt=0
-    inComment = False
+    inComment1 = False
+    inComment2 = False
     try:
         with open(filename,"r+") as foo:
             for line in foo:
@@ -126,13 +127,19 @@ def readFile(filename):
                 temp = lineCYK.lineToList(line)
                 if len(temp) == 0:
                     continue
-                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment):
-                    inComment = True
+                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and not(inComment1) and not(inComment2):
+                    inComment1 = True
                     continue
-                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and inComment:
-                    inComment = False
+                if temp[0]=='"' and temp[1]=='"' and temp[2]=='"' and not(inComment1) and not(inComment2):
+                    inComment2 = True
                     continue
-                if inComment:
+                if temp[0]=="'" and temp[1]=="'" and temp[2]=="'" and inComment1 and not(inComment2):
+                    inComment1 = False
+                    continue
+                if temp[0]=='"' and temp[1]=='"' and temp[2]=='"' and not(inComment1) and inComment2:
+                    inComment2 = False
+                    continue
+                if inComment1 or inComment2:
                     continue
                 if temp[0]=="#":
                     continue

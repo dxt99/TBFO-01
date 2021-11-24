@@ -2,15 +2,3 @@ for a in b:
     while True:
         if not(False):
             break
-
-
-'''
-a
-
-
-'''
-
-        
-
-
-a = 2

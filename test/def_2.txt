@@ -1,0 +1,6 @@
+def a(x) :
+    x += 1
+    def tes(m,n) :
+        hasil = m+n
+        return hasil
+    return x+1

@@ -1,47 +1,46 @@
 *with
-M -> M1M2
+M -> M1M2 | MC  (C = comment)
 M1 -> with
 M2 -> M3M4
-M3 -> VE19 (method)
+M3 -> VE19 | VE43
 M4 -> M5M6
 M5 -> as
 M6 -> VM7
 M7 -> :
 
 *import  
-L -> L1L2 | L3L4 | LIV
+L -> L1L2 | L3L4 | LIV | L1L3
 L1-> LFV
+LF-> from
 L2-> L3L4
 L3-> LIV
-L4-> LAV
-LF-> from
-LA-> as
 LI-> import
+L4-> LAV
+LA-> as
 
 *def
 D -> D1D2
 D1 -> def
 D2 -> D3D4
-D3 -> V (Variabel)
+D3 -> V1V2 | V1V16 | A-Z | a-z | _
 D4 -> D5D6
 D5 -> (
 D6 -> D8D7
 D7 -> D11D12
-D8 -> V | empty | VD9
+D8 -> empty | VD9 | V1V2 | V1V16 | A-Z | a-z | _
 D9 -> D10D8
 D10 -> ,
 D11 -> )
 D12 -> :
 
 *return
-O -> O1O2
+O -> return | O1E2 | OC
 O1 -> return
-O2 -> V
 
 *class
-P -> P1P2
+P -> P1P2 | PC
 P1 -> class
 P2 -> P3P4
-P3 -> V
+P3 -> V1V2 | V1V16 | A-Z | a-z | _
 P4 -> :
 

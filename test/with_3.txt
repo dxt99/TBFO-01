@@ -1,0 +1,3 @@
+message_writer = MessageWriter('hello.txt')
+with message_writer.open_file() as my_file:
+    my_file.write('hello world')

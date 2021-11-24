@@ -44,3 +44,24 @@ P2 -> P3P4
 P3 -> V1V2 | V1V16 | A-Z | a-z | _
 P4 -> :
 
+CFG
+
+with
+M -> withVE19asV: | withVE43asV: | MC
+
+import
+L -> fromVimportVasV | importVasV | importV | fromVimportV
+
+def
+D -> defV(D1): | DC
+D1 -> {blank} | VD2 | V
+D2 -> ,
+
+return
+O -> return | returnE2 | OC
+
+class
+P -> classV: | PC
+
+comments
+C -> #{anything}
